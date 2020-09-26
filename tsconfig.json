@@ -1,6 +1,6 @@
 {
-    "extends": "@tsconfig/node12/tsconfig.json",
-    "compilerOptions": {
-        "outDir": "dist"
-      }  
+  "extends": "@tsconfig/node12/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  }
 }
