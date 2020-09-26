@@ -1,4 +1,3 @@
-import {GlobalConfigurationType} from './configuration.type';
 import {config} from 'dotenv';
 
 config();
@@ -11,8 +10,10 @@ function getEnvVariable(envName: string): string {
     return envValue;
 };
 
-export const GLOBAL_CONFIGURATION: GlobalConfigurationType = {
+const conf = {
     HOST: getEnvVariable('SERVER_HOST'),
     PORT: +getEnvVariable('SERVER_PORT'),
-    ENTREPRISE_DATA_API: getEnvVariable('ENTREPRISE_DATA_API')
+    COMPANY_DATA_API: getEnvVariable('COMPANY_DATA_API')
 }
+
+export const GLOBAL_CONFIGURATION = conf as Readonly<typeof conf>;
