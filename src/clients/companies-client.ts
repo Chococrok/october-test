@@ -1,7 +1,11 @@
 import { get } from 'https';
 import { GLOBAL_CONFIGURATION } from '../configuration';
 
-export async function getCompanies(name: string): Promise<object> {
+export async function getCompanies(
+  name: string
+): Promise<{
+  etablissement: Array<{ geo_adresse: string; nom_raison_sociale: string }>;
+}> {
   return new Promise<string>((resolve, reject) => {
     get(`${GLOBAL_CONFIGURATION.COMPANY_DATA_API}/full_text/${name}`, res => {
       const { statusCode } = res;
@@ -13,10 +17,10 @@ export async function getCompanies(name: string): Promise<object> {
       res.on('data', chunk => (rawData += chunk));
       res.on('end', () => resolve(rawData));
       res.on('error', reject);
-    });
+    }).on('error', reject);
   }).then(JSON.parse);
 }
 
 export default {
-  getCompanies: getCompanies,
+  getCompanies,
 };
