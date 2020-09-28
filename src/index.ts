@@ -1,15 +1,13 @@
 import express from 'express';
-import { CONSTANTS, GLOBAL_CONFIGURATION } from './configuration';
+import CONF from './configuration/global-configuration';
 import { COMPANIES_ROUTE } from './routes';
 
-console.log('Starting server with configuration', GLOBAL_CONFIGURATION);
+console.log('Starting server with configuration', CONF);
 
 const app = express();
 
-app.use(CONSTANTS.CONTEXT_ROOT, COMPANIES_ROUTE);
+app.use(CONF.CONTEXT_ROOT, COMPANIES_ROUTE);
 
-app.listen(GLOBAL_CONFIGURATION.PORT, () => {
-  console.log(
-    `Example app listening at http://${GLOBAL_CONFIGURATION.HOST}:${GLOBAL_CONFIGURATION.PORT}`
-  );
+app.listen(CONF.PORT, () => {
+  console.log(`October-test app listening at http://${CONF.HOST}:${CONF.PORT}`);
 });

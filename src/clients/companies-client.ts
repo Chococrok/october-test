@@ -1,5 +1,5 @@
 import { get } from 'https';
-import { GLOBAL_CONFIGURATION } from '../configuration';
+import CONF from '../configuration/global-configuration';
 
 export async function getCompanies(
   name: string
@@ -7,7 +7,7 @@ export async function getCompanies(
   etablissement: Array<{ geo_adresse: string; nom_raison_sociale: string }>;
 }> {
   return new Promise<string>((resolve, reject) => {
-    get(`${GLOBAL_CONFIGURATION.COMPANY_DATA_API}/full_text/${name}`, res => {
+    get(`${CONF.companyDataApi}/full_text/${name}`, res => {
       const { statusCode } = res;
 
       if (statusCode !== 200)

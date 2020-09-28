@@ -33,24 +33,23 @@ class _PhoneCacheService {
 
   private loadCache(): void {
     this.repo
-    .load(this.repoName)
-    .then(dump => (this.cache = dump))
-    .catch(error => {
-      console.warn('Could not load cache.');
-      console.error(error);
-    });
+      .load(this.repoName)
+      .then(dump => (this.cache = dump))
+      .catch(error => {
+        console.warn('Could not load cache.');
+        console.error(error);
+      });
   }
 
   private dumpCache(): void {
     this.repo
-    .save(this.repoName, this.cache)
-    .then(() => console.trace('Cache saved.'))
-    .catch(error => {
-      console.warn('An error occured, could node save the cache.');
-      console.error(error);
-    });
+      .save(this.repoName, this.cache)
+      .then(() => console.trace('Cache saved.'))
+      .catch(error => {
+        console.warn('An error occured, could node save the cache.');
+        console.error(error);
+      });
   }
-  
 }
 
 export default new _PhoneCacheService(repo);

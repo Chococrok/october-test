@@ -14,6 +14,6 @@ const limiter = rateLimit({
 COMPANIES_ROUTE.use(limiter);
 COMPANIES_ROUTE.get('/companies/:name', (req, res, next) => {
   CompaniesService.getPhoneNumber(req.params.name)
-    .then(company => res.send({ name: req.params.name, phoneNumber: company }))
+    .then(company => res.send({ name: req.params.name, phoneNumber: company || 'Not found' }))
     .catch(next);
 });
