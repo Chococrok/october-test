@@ -32,20 +32,20 @@ const serverHTML = http.createServer((_, res) => {
 describe('web-parser-service', function () {
   describe(`#${CompaniesService.getPhoneNumber.name}()`, function () {
     before(function () {
-        // @ts-ignore
-        CONF.companyDataApi = 'https://localhost:8080/';
-        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-        
-        serverAPI.listen(8080, 'localhost', () => {
-            console.log(`test server running at ${CONF.companyDataApi}`);
-          });
+      // @ts-ignore
+      CONF.companyDataApi = 'https://localhost:8080/';
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-          // @ts-ignore
-            CONF.webParser.URL = 'http://localhost:8081/';
-            
-            serverHTML.listen(8081, 'localhost', () => {
-              console.log(`test server running at ${CONF.webParser.URL}`);
-            });
+      serverAPI.listen(8080, 'localhost', () => {
+        console.log(`test server running at ${CONF.companyDataApi}`);
+      });
+
+      // @ts-ignore
+      CONF.webParser.URL = 'http://localhost:8081/';
+
+      serverHTML.listen(8081, 'localhost', () => {
+        console.log(`test server running at ${CONF.webParser.URL}`);
+      });
     });
 
     it('Should get an object with an array of companies', async function () {

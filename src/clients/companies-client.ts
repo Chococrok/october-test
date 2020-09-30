@@ -1,9 +1,7 @@
 import { get } from 'https';
 import CONF from '../configuration/global-configuration';
 
-export async function getCompanies(
-  name: string
-): Promise<{
+export async function getCompanies(name: string): Promise<{
   etablissement: Array<{ geo_adresse: string; nom_raison_sociale: string }>;
 }> {
   return new Promise<string>((resolve, reject) => {

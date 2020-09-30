@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import jsonValidator from 'jsonschema';
+import logger, { setLogLevel } from './logger';
 import { FileConfiguration } from './configuration-file-schema';
 
 function getEnvVariable(envName: string, mandatory?: boolean): string {
@@ -25,10 +26,10 @@ function getConfigurationFileContent(): FileConfiguration {
   let fileContent = {};
 
   try {
-    console.info(`Using configuration file: "${confFilePath}".`);
+    logger.debug(`Using configuration file: "${confFilePath}".`);
     fileContent = JSON.parse(fs.readFileSync(confFilePath, 'utf-8'));
   } catch (error) {
-    console.error(`Could not read configuration file at: "${confFilePath}".`);
+    logger.error(`Could not read configuration file at: "${confFilePath}".`);
     throw error;
   }
 
@@ -39,7 +40,7 @@ function getConfigurationFileContent(): FileConfiguration {
       { throwError: true }
     );
   } catch (error) {
-    console.error(
+    logger.error(
       `An error occured while validating configuration file at: "${confFilePath}".`
     );
     throw error;
@@ -54,6 +55,20 @@ const envConf = {
   CONTEXT_ROOT: getEnvVariable('CONTEXT_ROOT'),
 };
 const fileConf = getConfigurationFileContent();
-const globalConf = { ...fileConf, ...envConf };
+let globalConf = { ...fileConf, ...envConf };
+
+setLogLevel(globalConf.logLevel);
+
+setInterval(() => {
+  try {
+    const newFileConf = getConfigurationFileContent();
+    globalConf = { ...newFileConf, ...envConf };
+
+    setLogLevel(globalConf.logLevel);
+  } catch (error) {
+    logger.warn('Could not refresh configuration');
+    logger.debug(error);
+  }
+}, 1000 * 30);
 
 export default globalConf as Readonly<typeof globalConf>;

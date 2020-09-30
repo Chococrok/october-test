@@ -5,6 +5,10 @@
   "description": "Configuration schema",
   "type": "object",
   "properties": {
+    "logLevel": {
+      "enum": ["error", "warn", "info", "http", "verbose", "debug", "silly"],
+      "description": "The application log level"
+    },
     "companyDataApi": {
       "type": "string",
       "description": "The url of the api to get company informations"
@@ -29,5 +33,5 @@
       "required": ["URL", "patternToExtract"]
     }
   },
-  "required": ["companyDataApi", "webParser"]
+  "required": ["companyDataApi", "logLevel", "webParser"]
 }

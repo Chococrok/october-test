@@ -1,3 +1,4 @@
+import logger from '../configuration/logger';
 import repo from '../repos/fs-repo';
 
 const cacheMaxDuration = 1000 * 60 * 60 * 24;
@@ -36,18 +37,18 @@ class _PhoneCacheService {
       .load(this.repoName)
       .then(dump => (this.cache = dump))
       .catch(error => {
-        console.warn('Could not load cache.');
-        console.error(error);
+        logger.warn('Could not load cache.');
+        logger.error(error);
       });
   }
 
   private dumpCache(): void {
     this.repo
       .save(this.repoName, this.cache)
-      .then(() => console.trace('Cache saved.'))
+      .then(() => logger.silly('Cache saved.'))
       .catch(error => {
-        console.warn('An error occured, could node save the cache.');
-        console.error(error);
+        logger.warn('An error occured, could node save the cache.');
+        logger.debug(error);
       });
   }
 }

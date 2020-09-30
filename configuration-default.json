@@ -1,4 +1,5 @@
 {
+  "logLevel": "silly",
   "companyDataApi": "https://entreprise.data.gouv.fr/api/sirene/v1/",
   "webParser": {
     "URL": "https://google.com/search?q=",

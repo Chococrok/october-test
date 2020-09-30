@@ -25,7 +25,7 @@ describe('companies-client', function () {
       // @ts-ignore
       CONF.companyDataApi = 'https://localhost:8080';
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-      
+
       server.listen(8080, 'localhost', () => {
         console.log(`test server running at ${CONF.companyDataApi}`);
       });

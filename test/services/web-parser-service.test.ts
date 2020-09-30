@@ -16,12 +16,14 @@ const server = http.createServer((_, res) => {
 describe('web-parser-service', function () {
   describe(`#${WebParserService.searchCompaniesInfo.name}()`, function () {
     before(function () {
-        // @ts-ignore
-          CONF.webParser.URL = 'http://localhost:8080/';
-          
-          server.listen(8080, 'localhost', () => {
-            console.log(`test server running at ${CONF.webParser.URL}`);
-          });
+      this.timeout(3000)
+      
+      // @ts-ignore
+      CONF.webParser.URL = 'http://localhost:8080/';
+
+      server.listen(8080, 'localhost', () => {
+        console.log(`test server running at ${CONF.webParser.URL}`);
+      });
     });
 
     it('Should get an object with an array of companies', async function () {

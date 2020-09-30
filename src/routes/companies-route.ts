@@ -1,6 +1,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import CompaniesService from '../services/companies-service';
+import logger from '../configuration/logger';
 
 export const COMPANIES_ROUTE = express.Router();
 
@@ -13,7 +14,13 @@ const limiter = rateLimit({
 
 COMPANIES_ROUTE.use(limiter);
 COMPANIES_ROUTE.get('/companies/:name', (req, res, next) => {
-  CompaniesService.getPhoneNumber(req.params.name)
-    .then(company => res.send({ name: req.params.name, phoneNumber: company || 'Not found' }))
+  const name = req.params.name;
+
+  logger.debug(`New request asking for company: ${name}`);
+
+  CompaniesService.getPhoneNumber(name)
+    .then(company =>
+      res.send({ name: name, phoneNumber: company || 'Not found' })
+    )
     .catch(next);
 });
