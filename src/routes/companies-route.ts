@@ -28,7 +28,7 @@ COMPANIES_ROUTE.get('/companies', (req, res, next) => {
 
   for (const key of Object.keys(params)) {
     if (!AVAILABLE_QUERY_PARAMS.includes(key)) {
-      next(new HandledRouteError(400, `query parameter ${key} unknown`));
+      next(new HandledRouteError(400, `query parameter ${key} unknown, available: [ ${AVAILABLE_QUERY_PARAMS} ]`));
       return;
     }
   }
