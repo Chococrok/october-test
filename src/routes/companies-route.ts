@@ -2,6 +2,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import CompaniesService from '../services/companies-service';
 import logger from '../configuration/logger';
+import { HandledRouteError } from './route-error';
 
 export const COMPANIES_ROUTE = express.Router();
 
@@ -12,15 +13,29 @@ const limiter = rateLimit({
   max: 1,
 });
 
+type availableQueryParamsType = {
+  name: string;
+  siret: string;
+  siren: string;
+  adress: string;
+};
+
+const AVAILABLE_QUERY_PARAMS = ['name', 'siret', 'siren', 'adress'];
+
 COMPANIES_ROUTE.use(limiter);
-COMPANIES_ROUTE.get('/companies/:name', (req, res, next) => {
-  const name = req.params.name;
+COMPANIES_ROUTE.get('/companies', (req, res, next) => {
+  const params = req.query as availableQueryParamsType;
 
-  logger.debug(`New request asking for company: ${name}`);
+  for (const key of Object.keys(params)) {
+    if (!AVAILABLE_QUERY_PARAMS.includes(key)) {
+      next(new HandledRouteError(400, `query parameter ${key} unknown`));
+      return;
+    }
+  }
 
-  CompaniesService.getPhoneNumber(name)
-    .then(company =>
-      res.send({ name: name, phoneNumber: company || 'Not found' })
-    )
+  logger.debug(`New request asking for company: ${params.name}`);
+
+  CompaniesService.getPhoneNumber(params)
+    .then(company => res.send(company))
     .catch(next);
 });

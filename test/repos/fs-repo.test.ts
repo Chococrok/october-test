@@ -22,7 +22,7 @@ describe('fs-repo', function () {
     it('should save a file with the provided name and content', async function () {
       const toSave = { toto: 'titi' };
 
-      fsRepo.save(testFileName, toSave);
+      await fsRepo.save(testFileName, toSave);
 
       const fileContent = await fs.readFile(getCachePath(testFileName));
       assert.strictEqual(fileContent.toString(), JSON.stringify(toSave));
@@ -33,12 +33,12 @@ describe('fs-repo', function () {
     const testFileName = 'fs-repo.test';
     const toLoad = { toto: 'titi' };
 
-    before(function () {
-      fsRepo.save(testFileName, toLoad);
+    before(async function () {
+      await fsRepo.save(testFileName, toLoad);
     });
 
     it('should laod a file with the provided name', async function () {
-      fsRepo.load(testFileName);
+      await fsRepo.load(testFileName);
 
       const fileContent = await fs.readFile(getCachePath('.test'));
       assert.strictEqual(fileContent.toString(), JSON.stringify(toLoad));

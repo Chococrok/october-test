@@ -20,7 +20,7 @@ const server = https.createServer(serverOptions, (req, res) => {
 });
 
 describe('companies-client', function () {
-  describe(`#${CompaniesClient.getCompanies.name}()`, function () {
+  describe(`#${CompaniesClient.getCompaniesWithName.name}()`, function () {
     before(function () {
       // @ts-ignore
       CONF.companyDataApi = 'https://localhost:8080';
@@ -32,7 +32,7 @@ describe('companies-client', function () {
     });
 
     it('Should get an object with an array of companies', async function () {
-      const result = await CompaniesClient.getCompanies('OK');
+      const result = await CompaniesClient.getCompaniesWithName('OK');
       assert.deepStrictEqual(result, serverResponse);
     });
 

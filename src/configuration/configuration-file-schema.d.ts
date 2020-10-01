@@ -12,7 +12,7 @@ export interface FileConfiguration {
   /**
    * The application log level
    */
-  logLevel: 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
+  logLevel: "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
   /**
    * The url of the api to get company informations
    */

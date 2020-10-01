@@ -48,9 +48,12 @@ describe('web-parser-service', function () {
       });
     });
 
-    it('Should get an object with an array of companies', async function () {
-      const result = await CompaniesService.getPhoneNumber('');
-      assert.strictEqual(result, '01 82 83 28 00');
+    it('Should get an object with company name and phone', async function () {
+      const result = await CompaniesService.getPhoneNumber({ name: 'october' });
+      assert.deepStrictEqual(result, {
+        companyName: 'october',
+        phone: '01 82 83 28 00',
+      });
     });
 
     after(function () {

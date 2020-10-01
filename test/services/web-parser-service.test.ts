@@ -16,8 +16,8 @@ const server = http.createServer((_, res) => {
 describe('web-parser-service', function () {
   describe(`#${WebParserService.searchCompaniesInfo.name}()`, function () {
     before(function () {
-      this.timeout(3000)
-      
+      this.timeout(3000);
+
       // @ts-ignore
       CONF.webParser.URL = 'http://localhost:8080/';
 
